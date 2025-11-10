@@ -22,18 +22,24 @@ export default function ScrollReveal({
 
     const originalText = el.textContent;
 
+    // Pastikan hanya untuk TEKS, kalau komponen lain jangan ubah DOM
     if (!originalText || originalText.trim() === "") return;
 
-    const words = originalText.split(/(\s+)/).map((word, i) => {
-      if (word.match(/^\s+$/)) return word;
-      return `<span class="word">${word}</span>`;
-    }).join('');
+    // Pecah jadi span per kata
+    const words = originalText
+      .split(/(\s+)/)
+      .map((word) => {
+        if (word.match(/^\s+$/)) return word;
+        return `<span class="word">${word}</span>`;
+      })
+      .join('');
 
     el.innerHTML = words;
 
     const scroller = scrollContainerRef?.current || window;
     const wordElements = el.querySelectorAll('.word');
 
+    // ROTATE TEXT GROUP
     gsap.fromTo(
       el,
       { rotate: baseRotation, transformOrigin: '0% 50%' },
@@ -46,10 +52,11 @@ export default function ScrollReveal({
           start: 'top bottom',
           end: 'bottom bottom',
           scrub: true,
-        }
+        },
       }
     );
 
+    // FADE WORDS
     gsap.fromTo(
       wordElements,
       { opacity: baseOpacity },
@@ -62,10 +69,11 @@ export default function ScrollReveal({
           start: 'top bottom-=20%',
           end: 'bottom bottom',
           scrub: true,
-        }
+        },
       }
     );
 
+    // BLUR ANIMATION
     if (enableBlur) {
       gsap.fromTo(
         wordElements,
@@ -79,12 +87,17 @@ export default function ScrollReveal({
             start: 'top bottom-=20%',
             end: 'bottom bottom',
             scrub: true,
-          }
+          },
         }
       );
     }
 
-    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+    // ✅ FIX: Jangan kill semua ScrollTrigger
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => {
+        if (t.trigger === el) t.kill();
+      });
+    };
   }, [children]);
 
   return (
