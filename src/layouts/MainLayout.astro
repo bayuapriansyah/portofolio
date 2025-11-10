@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
-import Footer from "../components/Footer.astro";
+import InitAOS from "../components/InitAOS.jsx";
+
 const { title = "Portfolio" } = Astro.props;
 ---
 
@@ -9,8 +10,7 @@ const { title = "Portfolio" } = Astro.props;
     <meta charset="UTF-8" />
     <title>{title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script type="module" src="/src/assets/initAOS.js"></script>
+    <!-- AOS CSS/JS are initialized via a client component (InitAOS) to ensure bundling. -->
   </head>
 
   <body
@@ -29,6 +29,7 @@ const { title = "Portfolio" } = Astro.props;
     <main class="relative z-10 max-w-3xl mx-auto px-6 py-16">
       <slot />
     </main>
+    <InitAOS client:load />
   </body>
 
   <script>
