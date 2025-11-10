@@ -1,0 +1,32 @@
+{
+  "name": "porto",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/tailwind": "^6.0.2",
+    "@fontsource/inter": "^5.1.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "aos": "^2.3.4",
+    "astro": "^5.15.4",
+    "gsap": "^3.13.0",
+    "react": "^19.2.0",
+    "react-bits": "^1.0.5",
+    "react-dom": "^19.2.0",
+    "react-native-web": "^0.21.2"
+  },
+  "devDependencies": {
+    "@astrojs/netlify": "^6.6.0",
+    "@tailwindcss/cli": "^4.1.17",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18"
+  }
+}

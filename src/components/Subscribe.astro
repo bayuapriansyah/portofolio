@@ -1,0 +1,52 @@
+<section class="mt-24 border border-dashed rounded-2xl p-6" id="contact">
+  <h3 class="font-semibold text-3xl flex items-center gap-2">Contact</h3>
+  <p class="mt-2 text-gray-600 text-sm">
+    Have a question or a project in mind? Feel free to reach out:
+    <span class="font-medium text-gray-800">bayuapriansyah2022@gmail.com</span>
+  </p>
+
+  <form
+    action="https://formsubmit.co/bayuapriansyah2022@gmail.com"
+    method="POST"
+    class="mt-4"
+  >
+    <!-- Prevent spam -->
+    <input type="hidden" name="_captcha" value="false" />
+
+    <input
+      type="hidden"
+      name="_next"
+      value="https://bayuapriansyahputra.netlify.app/Thanks"
+    />
+
+    <input type="hidden" name="_subject" value="Ada pesan nih" />
+    <input
+      type="text"
+      name="name"
+      placeholder="Name"
+      class="w-full border rounded-lg px-3 py-3 mb-3"
+      required
+    />
+
+    <input
+      type="email"
+      name="email"
+      placeholder="Email"
+      class="w-full border rounded-lg px-3 py-3 mb-3"
+      required
+    />
+
+    <textarea
+      name="message"
+      placeholder="Message"
+      class="w-full border rounded-lg px-3 py-3 h-32 resize-none mb-3"
+      required></textarea>
+
+    <button
+      type="submit"
+      class="w-full bg-black text-white px-3 py-3 rounded-lg hover:opacity-90 transition"
+    >
+      Send Message
+    </button>
+  </form>
+</section>

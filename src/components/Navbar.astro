@@ -1,0 +1,58 @@
+<header
+  class="fixed top-0 left-0 w-full backdrop-blur-md bg-white/30 border-b border-white/20 z-50"
+>
+  <div
+    class="max-w-4xl mx-auto flex items-center justify-between py-4 px-6 shadow rounded-b-lg"
+  >
+    <div class="text-lg font-bold">&lt;Bayu /&gt;</div>
+
+    <nav
+      class="hidden md:flex items-center gap-10 text-sm font-medium text-gray-600"
+      id="navLinks"
+    >
+      <a href="#home" class="nav-link hover:text-black transition">Home</a>
+      <a href="#projects" class="nav-link hover:text-black transition"
+        >Project</a
+      >
+      <a href="#contact" class="nav-link hover:text-black transition">Contact</a
+      >
+      <div>
+        <button class="px-2 py-1 rounded-md border text-xs">ID</button>
+      </div>
+      <a href="#contact">
+        <button
+          class="bg-gradient-to-r from-zinc-800 via-black to-zinc-900 text-white font-medium px-6 py-2.5 rounded-xl shadow-md
+  transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5 active:scale-95"
+        >
+          Let's Talk
+        </button></a
+      >
+    </nav>
+
+    <button id="menuBtn" class="md:hidden text-2xl transition">☰</button>
+  </div>
+  <div
+    id="overlay"
+    class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden z-40"
+  >
+  </div>
+
+  <div
+    id="mobileMenu"
+    class="md:hidden max-h-0 overflow-hidden transition-all duration-300 bg-white/70 backdrop-blur-md border-t border-white/20 mx-3 rounded-md shadow"
+  >
+    <div class="flex flex-col text-center text-xl py-4">
+      <a href="#home" class="nav-link py-2">Home</a>
+      <a href="#projects" class="nav-link py-2">Project</a>
+      <a href="#contact" class="nav-link py-2">Contact</a>
+      <a href="#contact">
+        <button
+          class="bg-gradient-to-r from-zinc-800 via-black to-zinc-900 text-white font-medium px-6 py-2.5 rounded-xl shadow-md
+  transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5 active:scale-95"
+        >
+          Let's Talk
+        </button></a
+      >
+    </div>
+  </div>
+</header>

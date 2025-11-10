@@ -1,0 +1,49 @@
+---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+const { title = "Portfolio" } = Astro.props;
+---
+
+<html lang="id" class="scroll-smooth overflow-x-hidden">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script type="module" src="/src/assets/initAOS.js"></script>
+  </head>
+
+  <body
+    class="font-sans bg-white text-gray-900 antialiased relative overflow-x-hidden"
+  >
+    <div
+      class="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(#00000010_1.2px,transparent_1px),linear-gradient(90deg,#00000010_1.2px,transparent_1px)] bg-[size:100px_100px]"
+    >
+    </div>
+
+    <div
+      class="pointer-events-none fixed inset-9 z-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_150%)]"
+    >
+    </div>
+
+    <main class="relative z-10 max-w-3xl mx-auto px-6 py-16">
+      <slot />
+    </main>
+  </body>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("max-h-0");
+          mobileMenu.classList.toggle("max-h-64");
+          menuBtn.textContent = mobileMenu.classList.contains("max-h-64")
+            ? "✕"
+            : "☰";
+        });
+      }
+    });
+  </script>
+</html>
