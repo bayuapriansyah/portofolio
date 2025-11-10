@@ -11,14 +11,14 @@ import ScrollReveal from "../components/ScrollReveal/ScrollReveal.jsx";
 import Tools from "../components/Tools.astro";
 ---
 
-<MainLayout title="Portofolio Bayu">
+<MainLayout title="Portofolio App">
   <Navbar />
   <Hero />
   <About />
 
   <div data-aos="fade-up">
     <ScrollReveal
-      client:visible
+      client:load
       baseOpacity={0}
       enableBlur={true}
       baseRotation={1}
