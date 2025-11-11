@@ -22,10 +22,8 @@ export default function ScrollReveal({
 
     const originalText = el.textContent;
 
-    // Pastikan hanya untuk TEKS, kalau komponen lain jangan ubah DOM
     if (!originalText || originalText.trim() === "") return;
 
-    // Pecah jadi span per kata
     const words = originalText
       .split(/(\s+)/)
       .map((word) => {
@@ -39,7 +37,6 @@ export default function ScrollReveal({
     const scroller = scrollContainerRef?.current || window;
     const wordElements = el.querySelectorAll('.word');
 
-    // ROTATE TEXT GROUP
     gsap.fromTo(
       el,
       { rotate: baseRotation, transformOrigin: '0% 50%' },
@@ -56,7 +53,6 @@ export default function ScrollReveal({
       }
     );
 
-    // FADE WORDS
     gsap.fromTo(
       wordElements,
       { opacity: baseOpacity },
@@ -73,7 +69,6 @@ export default function ScrollReveal({
       }
     );
 
-    // BLUR ANIMATION
     if (enableBlur) {
       gsap.fromTo(
         wordElements,
@@ -92,7 +87,6 @@ export default function ScrollReveal({
       );
     }
 
-    // ✅ FIX: Jangan kill semua ScrollTrigger
     return () => {
       ScrollTrigger.getAll().forEach((t) => {
         if (t.trigger === el) t.kill();
