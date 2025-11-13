@@ -1,17 +1,16 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Hero from "../components/Hero.astro";
 import About from "../components/About.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import Subscribe from "../components/Subscribe.astro";
 import Footer from "../components/Footer.astro";
+import Subscribe from "../components/Subcribe.astro";
 import ScrollReveal from "../components/ScrollReveal/ScrollReveal.jsx";
 import Tools from "../components/Tools.astro";
 ---
 
-<MainLayout title="Portofolio App">
+<MainLayout title="Bayu Apriansyah">
   <Navbar />
   <Hero />
   <About />
@@ -41,6 +40,7 @@ import Tools from "../components/Tools.astro";
 
   <section id="projects" class="mt-24">
     <h2 class="text-3xl font-bold mb-2">Showcase Project</h2>
+    <div class="gradient-curve mb-3"></div>
     <p class="mb-6 text-gray-500">
       Here are some of my latest projects. I'm always working on something new,
       so check back often!
@@ -64,3 +64,15 @@ import Tools from "../components/Tools.astro";
   <Subscribe />
   <Footer />
 </MainLayout>
+<style>
+  .gradient-curve {
+    width: 100%;
+    max-width: 270px;
+    height: 3px;
+    margin-top: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #ffce00, #00ffcc, #9933ff);
+    transform: scaleY(1.6);
+    transform-origin: center;
+  }
+</style>

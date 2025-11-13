@@ -1,0 +1,118 @@
+<section class="mt-24 border border-dashed rounded-2xl p-6" id="contact">
+  <h3 class="font-semibold text-3xl flex items-center gap-2">Contact</h3>
+  <p class="mt-2 text-gray-600 text-sm mb-3">
+    Have a question or a project in mind? Feel free to reach out:
+    <span class="font-medium text-gray-800">bayuapriansyah2022@gmail.com</span>
+  </p>
+  <form
+    action="https://api.web3forms.com/submit"
+    method="POST"
+    id="form"
+    class="needs-validation"
+    data-astro-reload
+    novalidate
+  >
+    <input
+      type="hidden"
+      name="access_key"
+      value="c64ff2e4-aab4-47ca-8b4e-0b49665eaaa6"
+    />
+
+    <input
+      type="checkbox"
+      class="hidden"
+      style="display:none"
+      name="botcheck"
+    />
+    <div class="mb-5">
+      <input
+        type="text"
+        placeholder="Name"
+        required
+        class="w-full px-4 py-3 border placeholder:text-slate-400 rounded-md outline-none focus:ring-4 border-slate-300 focus:border-slate-600 ring-slate-100"
+        name="name"
+      />
+    </div>
+    <div class="mb-5">
+      <label for="email_address" class="sr-only">Email Address</label><input
+        id="email_address"
+        type="email"
+        placeholder="Email"
+        name="email"
+        required
+        class="w-full px-4 py-3 border placeholder:text-slate-400 rounded-md outline-none focus:ring-4 border-slate-300 focus:border-slate-600 ring-slate-100"
+      />
+    </div>
+    <div class="mb-3">
+      <textarea
+        name="message"
+        required
+        placeholder="Message"
+        class="w-full px-4 py-3 border placeholder:text-slate-400 rounded-md outline-none h-36 focus:ring-4 border-slate-300 focus:border-slate-600 ring-slate-100"
+      ></textarea>
+    </div>
+    <button
+      type="submit"
+      class="w-full bg-black text-white px-3 py-3 rounded-lg hover:opacity-90 transition"
+    >
+      Send Message
+    </button>
+    <div id="result" class="mt-3 text-center"></div>
+  </form>
+</section>
+
+<script is:inline>
+  document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+      const form = document.getElementById("form");
+      const result = document.getElementById("result");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        form.classList.add("was-validated");
+        if (!form.checkValidity()) {
+          form.querySelectorAll(":invalid")[0].focus();
+          return;
+        }
+        const formData = new FormData(form);
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
+
+        result.innerHTML = "Sending...";
+
+        fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: json,
+        })
+          .then(async (response) => {
+            let json = await response.json();
+            if (response.status == 200) {
+              result.classList.add("text-green-500");
+              result.innerHTML = json.message;
+            } else {
+              console.log(response);
+              result.classList.add("text-red-500");
+              result.innerHTML = json.message;
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            result.innerHTML = "Something went wrong!";
+          })
+          .then(function () {
+            form.reset();
+            form.classList.remove("was-validated");
+            setTimeout(() => {
+              result.style.display = "none";
+            }, 5000);
+          });
+      });
+    },
+    { once: true }
+  );
+</script>
