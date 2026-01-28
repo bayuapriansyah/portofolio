@@ -1,153 +1,50 @@
 ---
-
+const tools = [
+  { name: "JavaScript", icon: "/icon/js.png", color: "bg-yellow-400/10", glow: "bg-yellow-400/20" },
+  { name: "Laravel", icon: "/icon/Laravel.png", color: "bg-red-500/10", glow: "bg-red-500/20" },
+  { name: "PHP", icon: "/icon/php.png", color: "bg-indigo-400/10", glow: "bg-indigo-400/20" },
+  { name: "MySQL", icon: "/icon/mysql.png", color: "bg-blue-400/10", glow: "bg-blue-400/20" },
+  { name: "Tailwind", icon: "/icon/tailwind.png", color: "bg-sky-400/10", glow: "bg-sky-400/20" },
+  { name: "HTML", icon: "/icon/html.png", color: "bg-orange-400/10", glow: "bg-orange-400/20" },
+  { name: "CSS", icon: "/icon/css.png", color: "bg-blue-400/10", glow: "bg-blue-400/20" },
+  { name: "Bootstrap", icon: "/icon/bootstrap.png", color: "bg-purple-500/10", glow: "bg-purple-500/20" },
+  { name: "VS Code", icon: "/icon/vscode.png", color: "bg-blue-500/10", glow: "bg-blue-500/20" },
+  { name: "Figma", icon: "/icon/figma.png", color: "bg-purple-400/10", glow: "bg-purple-400/20" },
+  { name: "Git", icon: "/icon/github.png", color: "bg-slate-400/10", glow: "bg-slate-400/20" }
+];
 ---
 
-<section class="mt-24" id="about-me">
-  <h2 class="text-3xl font-bold mb-2">Tools & Technologies</h2>
-  <div class="gradient-curve mb-3"></div>
-  <p class="text-lg text-gray-500 ml-1">My professional skills</p>
-  <div
-    class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6"
-  >
-    <div class="group" data-aos="fade-up">
-      <div
-        class="flex items-center gap-4 p-5 rounded-xl shadow-md border border-gray-200 bg-white transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
-      >
-        <img src="/icon/js.png" class="w-12 h-12 object-contain" />
-        <div>
-          <h3 class="font-semibold">JavaScript</h3>
-          <p class="text-sm text-gray-500">Programming Language</p>
-        </div>
-      </div>
-    </div>
+<section class="mt-32 reveal-section" id="tools">
+  <div class="flex flex-col items-center text-center mb-16">
+    <h2 class="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 dark:text-white">Tools & Technology</h2>
+    <p class="mt-4 text-slate-500 dark:text-slate-400 max-w-sm">The technology and tools I use to realize my projects</p>
+  </div>
 
-    <div class="group" data-aos="fade-up">
-      <div
-        class="flex items-center gap-4 p-5 rounded-xl shadow-md border border-gray-200 bg-white transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    {tools.map(tool => (
+      <div 
+        class="reveal-card group relative overflow-hidden glass rounded-2xl p-6 transition-all duration-300 hover:scale-[1.05] hover:shadow-xl flex flex-col items-center justify-center gap-4 text-center"
       >
-        <img src="/icon/php.png" class="w-12 h-12 object-contain" />
-        <div>
-          <h3 class="font-semibold">PHP</h3>
-          <p class="text-sm text-gray-500">Programming Language</p>
-        </div>
-      </div>
-    </div>
+        <!-- Background Glow -->
+        <div class={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${tool.color}`}></div>
+        <div class={`absolute -top-10 -right-10 w-20 h-20 blur-[50px] rounded-full transition-all duration-500 group-hover:scale-150 ${tool.glow} opacity-0 group-hover:opacity-100`}></div>
 
-    <div class="group" data-aos="fade-up">
-      <div
-        class="flex items-center gap-4 p-5 rounded-xl shadow-md border border-gray-200 bg-white transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
-      >
-        <img src="/icon/Laravel.png" class="w-12 h-12 object-contain" />
-        <div>
-          <h3 class="font-semibold">Laravel</h3>
-          <p class="text-sm text-gray-500">Backend Framework</p>
+        <div class="relative z-10 flex flex-col items-center gap-3">
+          <div class="w-12 h-12 flex items-center justify-center rounded-xl p-2 bg-white/5 dark:bg-black/20 border border-white/10 transition-transform duration-300 group-hover:scale-110">
+            <img src={tool.icon} alt={tool.name} class="w-full h-full object-contain" />
+          </div>
+          <h3 class="text-sm font-bold uppercase tracking-widest text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+            {tool.name}
+          </h3>
         </div>
       </div>
-    </div>
-
-    <div class="group" data-aos="fade-up">
-      <div
-        class="flex items-center gap-4 p-5 rounded-xl shadow-md border border-gray-200 bg-white transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
-      >
-        <img src="/icon/mysql.png" class="w-12 h-12 object-contain" />
-        <div>
-          <h3 class="font-semibold">MySQL</h3>
-          <p class="text-sm text-gray-500">Database</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="group" data-aos="fade-up">
-      <div
-        class="flex items-center gap-4 p-5 rounded-xl shadow-md border border-gray-200 bg-white transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
-      >
-        <img src="/icon/tailwind.png" class="w-12 h-12 object-contain" />
-        <div>
-          <h3 class="font-semibold">TailwindCSS</h3>
-          <p class="text-sm text-gray-500">CSS Framework</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="group" data-aos="fade-up">
-      <div
-        class="flex items-center gap-4 p-5 rounded-xl shadow-md border border-gray-200 bg-white transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
-      >
-        <img src="/icon/bootstrap.png" class="w-12 h-12 object-contain" />
-        <div>
-          <h3 class="font-semibold">Bootstrap</h3>
-          <p class="text-sm text-gray-500">CSS Framework</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="group" data-aos="fade-up">
-      <div
-        class="flex items-center gap-4 p-5 rounded-xl shadow-md border border-gray-200 bg-white transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
-      >
-        <img src="/icon/html.png" class="w-12 h-12 object-contain" />
-        <div>
-          <h3 class="font-semibold">HTML</h3>
-          <p class="text-sm text-gray-500">Markup Language</p>
-        </div>
-      </div>
-    </div>
-    <div class="group" data-aos="fade-up">
-      <div
-        class="flex items-center gap-4 p-5 rounded-xl shadow-md border border-gray-200 bg-white transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
-      >
-        <img src="/icon/css.png" class="w-12 h-12 object-contain" />
-        <div>
-          <h3 class="font-semibold">CSS</h3>
-          <p class="text-sm text-gray-500">Cascading Style Sheet</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="group" data-aos="fade-up">
-      <div
-        class="flex items-center gap-4 p-5 rounded-xl shadow-md border border-gray-200 bg-white transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
-      >
-        <img src="/icon/github.png" class="w-12 h-12 object-contain" />
-        <div>
-          <h3 class="font-semibold">GitHub</h3>
-          <p class="text-sm text-gray-500">Repository Hosting</p>
-        </div>
-      </div>
-    </div>
-    <div class="group" data-aos="fade-up">
-      <div
-        class="flex items-center gap-4 p-5 rounded-xl shadow-md border border-gray-200 bg-white transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
-      >
-        <img src="/icon/figma.png" class="w-12 h-12 object-contain" />
-        <div>
-          <h3 class="font-semibold">Figma</h3>
-          <p class="text-sm text-gray-500">Design App</p>
-        </div>
-      </div>
-    </div>
-    <div class="group" data-aos="fade-up">
-      <div
-        class="flex items-center gap-4 p-5 rounded-xl shadow-md border border-gray-200 bg-white transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
-      >
-        <img src="/icon/vscode.png" class="w-12 h-12 object-contain" />
-        <div>
-          <h3 class="font-semibold">VS Code</h3>
-          <p class="text-sm text-gray-500">Code Editor</p>
-        </div>
-      </div>
-    </div>
+    ))}
   </div>
 </section>
+
 <style>
-  .gradient-curve {
-    width: 100%;
-    max-width: 320px;
-    height: 3px;
-    margin-top: 3px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, #ffce00, #00ffcc, #9933ff);
-    transform: scaleY(1.6);
-    transform-origin: center;
+  .reveal-card {
+    opacity: 0;
+    transform: translateY(20px);
   }
 </style>

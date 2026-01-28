@@ -1,50 +1,186 @@
 ---
 import "../styles/global.css";
 import InitAOS from "../components/InitAOS.jsx";
+import { ClientRouter } from "astro:transitions";
+import Preloader from "../components/Preloader.astro";
 
 const { title = "Portfolio" } = Astro.props;
 ---
 
-<html lang="id" class="scroll-smooth overflow-x-hidden">
+<html lang="id" class="overflow-x-hidden">
   <head>
     <meta charset="UTF-8" />
     <title>{title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" href="/icon/astro-icon-dark.png" />
+
+    <script is:inline>
+      const theme = localStorage.getItem("color-theme");
+      if (theme === "dark" || !theme) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+    <ClientRouter />
   </head>
 
-  <body
-    class="font-sans bg-white text-gray-900 antialiased relative overflow-x-hidden"
-  >
+  <body class="selection:bg-blue-500/30">
+    <Preloader />
+    <!-- Background Layers -->
     <div
-      class="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(#00000010_1.2px,transparent_1px),linear-gradient(90deg,#00000010_1.2px,transparent_1px)] bg-[size:100px_100px]"
+      class="fixed inset-0 pointer-events-none -z-10 bg-white dark:bg-slate-950 transition-colors duration-500"
     >
+      <!-- Gradient Base -->
+      <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(59,130,246,0.03),transparent_50%),radial-gradient(circle_at_100%_100%,rgba(168,85,247,0.03),transparent_50%)]"
+      >
+      </div>
+
+      <!-- Subtle Grid -->
+      <div
+        class="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.01)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100px_100px]"
+      >
+      </div>
+
+      <!-- Animated Blobs -->
+      <div class="animated-bg">
+        <div class="blob-1 will-change-transform"></div>
+        <div class="blob-2 will-change-transform"></div>
+        <div class="blob-3 will-change-transform"></div>
+      </div>
+
+      <!-- Grain Texture Overlay -->
+      <div
+        class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none mix-blend-overlay bg-repeat"
+        style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"
+      >
+      </div>
     </div>
 
-    <div
-      class="pointer-events-none fixed inset-9 z-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_150%)]"
-    >
-    </div>
-
-    <main class="relative z-10 max-w-3xl mx-auto px-6 py-16">
+    <main class="relative z-10 max-w-4xl mx-auto px-6 py-24 md:py-32">
       <slot />
     </main>
     <InitAOS client:load />
-  </body>
+  </body><style>
+    .will-change-transform {
+      will-change: transform;
+    }
+    .blob-1,
+    .blob-2,
+    .blob-3 {
+      filter: blur(40px) !important;
+    }
+
+    html.lenis {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+  </style>
 
   <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const menuBtn = document.getElementById("menuBtn");
-      const mobileMenu = document.getElementById("mobileMenu");
-      if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener("click", () => {
-          mobileMenu.classList.toggle("max-h-0");
-          mobileMenu.classList.toggle("max-h-64");
-          menuBtn.textContent = mobileMenu.classList.contains("max-h-64")
-            ? "✕"
-            : "☰";
-        });
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import Lenis from "lenis";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    let lenis: Lenis | null = null;
+
+    const updateLenis = (time: number) => {
+      lenis?.raf(time * 1000);
+    };
+
+    const initSmoothScroll = () => {
+      if (lenis) {
+        lenis.destroy();
+        gsap.ticker.remove(updateLenis);
       }
+
+      lenis = new Lenis({
+        duration: 1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        wheelMultiplier: 1,
+      });
+
+      lenis.on("scroll", ScrollTrigger.update);
+
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", (e) => {
+          e.preventDefault();
+          const targetId = anchor.getAttribute("href");
+          if (targetId && targetId !== "#") {
+            const target = document.querySelector(targetId);
+            if (target) {
+              lenis?.scrollTo(target as HTMLElement, {
+                offset: -50,
+                duration: 1.5,
+              });
+            }
+          }
+        });
+      });
+
+      gsap.ticker.add(updateLenis);
+      gsap.ticker.lagSmoothing(0);
+    };
+
+    const initParallax = () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+
+      gsap.to(".blob-1", {
+        y: -100,
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1.5,
+        },
+      });
+
+      gsap.to(".blob-2", {
+        y: 100,
+        x: -30,
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1.8,
+        },
+      });
+
+      gsap.to(".blob-3", {
+        y: -80,
+        x: 30,
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 2,
+        },
+      });
+
+      ScrollTrigger.refresh();
+    };
+
+    document.addEventListener("astro:page-load", () => {
+      initSmoothScroll();
+      initParallax();
     });
   </script>
 </html>

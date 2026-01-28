@@ -5,74 +5,142 @@ import Hero from "../components/Hero.astro";
 import About from "../components/About.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import Footer from "../components/Footer.astro";
-import Subscribe from "../components/Subcribe.astro";
-import ScrollReveal from "../components/ScrollReveal/ScrollReveal.jsx";
+import Subscribe from "../components/Subscribe.astro";
 import Tools from "../components/Tools.astro";
 ---
 
-<MainLayout title="Bayu Apriansyah">
+<MainLayout title="Bayu Apriansyah | Full-Stack Developer">
   <Navbar />
-  <Hero />
-  <About />
 
-  <div data-aos="fade-up">
-    <ScrollReveal
-      client:load
-      baseOpacity={0}
-      enableBlur={true}
-      baseRotation={1}
-      blurStrength={3}
-      textClassName="text-xl text-2xl font-medium text-gray-600"
-    >
-      My name is Bayu Apriansyah Putra, a Full-Stack Web Developer from
-      Indonesia focusing on web application development using Laravel and
-      JavaScript. I have experience building structured, scalable backend
-      systems, along with responsive, user-friendly UIs. I have a strong
-      interest in software architecture, clean code, and efficient development
-      processes, and am actively learning the latest technologies and practices
-      in web development. I am open to collaboration on new projects, freelance
-      work, and job opportunities to create meaningful and sustainable digital
-      solutions.
-    </ScrollReveal>
-  </div>
+  <Hero />
+
+  <About />
 
   <Tools />
 
-  <section id="projects" class="mt-24">
-    <h2 class="text-3xl font-bold mb-2">Showcase Project</h2>
-    <div class="gradient-curve mb-3"></div>
-    <p class="mb-6 text-gray-500">
-      Here are some of my latest projects. I'm always working on something new,
-      so check back often!
-    </p>
-    <div data-aos="fade-right">
+  <section id="projects" class="mt-40 reveal-section">
+    <div class="flex flex-col items-center text-center mb-16">
+      <h2
+        class="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 dark:text-white"
+      >
+        My Projects
+      </h2>
+      <p class="mt-4 text-slate-500 dark:text-slate-400 max-w-sm">
+        A collection of projects I've built with passion and precision.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
       <ProjectCard
         image="/project/p1.png"
         title="Point Of Sale App"
-        desc="Created with Laravel, Bootstrap, MySQL, and SB Admin"
+        desc="A comprehensive POS system built with Laravel, featuring inventory management and sales analytics."
+        tags={["Laravel", "MySQL", "Inventory"]}
       />
-    </div>
-    <div data-aos="fade-left" data-aos-duration="600">
       <ProjectCard
         image="/project/p2.png"
-        title="Booking Reservatiom System"
-        desc="Created with Laravel, TailwindCSS, MySQL, and Payment Gateway"
+        title="Booking Reservation"
+        desc="A high-performance reservation system integrated with local payment gateways for seamless transactions."
+        tags={["Tailwind", "Laravel", "Payments"]}
       />
     </div>
   </section>
 
   <Subscribe />
+
   <Footer />
 </MainLayout>
-<style>
-  .gradient-curve {
-    width: 100%;
-    max-width: 270px;
-    height: 3px;
-    margin-top: 3px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, #ffce00, #00ffcc, #9933ff);
-    transform: scaleY(1.6);
-    transform-origin: center;
-  }
-</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { initMagnetic, splitTextMask } from "../scripts/gsapInit";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const initGlobalAnimations = () => {
+    // Magnetic effects
+    initMagnetic(".reveal-card, button");
+
+    splitTextMask(".reveal-section h2");
+
+    gsap.utils.toArray(".reveal-section").forEach((section: any) => {
+      const q = gsap.utils.selector(section);
+      const titleChars = q("h2 .char-inner");
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 90%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      tl.fromTo(
+        section,
+        { opacity: 0, scale: 0.995 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          force3D: true,
+          ease: "expo.out",
+        },
+      );
+
+      if (titleChars.length) {
+        tl.fromTo(
+          titleChars,
+          { y: "100%", rotate: 1 },
+          {
+            y: "0%",
+            rotate: 0,
+            stagger: 0.015,
+            duration: 0.8,
+            force3D: true,
+            ease: "expo.out",
+          },
+          "-=0.8",
+        );
+      }
+    });
+
+    const gridReveals = [
+      { trigger: "#tools .grid", targets: "#tools .reveal-card" },
+      { trigger: "#projects .grid", targets: ".project-card" },
+    ];
+
+    gridReveals.forEach(({ trigger, targets }) => {
+      if (document.querySelector(trigger)) {
+        gsap.to(targets, {
+          opacity: 1,
+          y: 0,
+          stagger: { amount: 0.3, grid: "auto", from: "start" },
+          duration: 0.8,
+          force3D: true,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: trigger,
+            start: "top 85%",
+          },
+        });
+      }
+    });
+
+    const contactGlass = document.querySelector("#contact .glass");
+    if (contactGlass) {
+      gsap.from(contactGlass, {
+        scale: 0.95,
+        opacity: 0,
+        duration: 1,
+        ease: "expo.out",
+        scrollTrigger: {
+          trigger: "#contact",
+          start: "top 85%",
+        },
+      });
+    }
+  };
+
+  document.addEventListener("astro:page-load", initGlobalAnimations);
+</script>

@@ -1,58 +1,122 @@
-<header
-  class="fixed top-0 left-0 w-full backdrop-blur-md bg-white/30 border-b border-white/20 z-50"
->
-  <div
-    class="max-w-4xl mx-auto flex items-center justify-between py-4 px-6 shadow rounded-b-lg"
-  >
-    <div class="text-lg font-bold">&lt;Bayu /&gt;</div>
+---
+import ThemeToggle from "./ThemeToggle.astro";
+---
 
-    <nav
-      class="hidden md:flex items-center gap-10 text-sm font-medium text-gray-600"
-      id="navLinks"
+<header class="fixed top-6 left-0 w-full z-50 px-6 pointer-events-none">
+  <div class="max-w-2xl mx-auto pointer-events-auto">
+    <div
+      class="glass rounded-2xl flex items-center justify-between py-2.5 px-3 pl-5 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 active:scale-[0.99] group"
     >
-      <a href="#home" class="nav-link hover:text-black transition">Home</a>
-      <a href="#projects" class="nav-link hover:text-black transition"
-        >Project</a
-      >
-      <a href="#contact" class="nav-link hover:text-black transition">Contact</a
-      >
-      <div>
-        <button class="px-2 py-1 rounded-md border text-xs">ID</button>
-      </div>
-      <a href="#contact">
-        <button
-          class="bg-gradient-to-r from-zinc-800 via-black to-zinc-900 text-white font-medium px-6 py-2.5 rounded-xl shadow-md
-  transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5 active:scale-95"
+      <div class="flex items-center gap-2">
+        <a
+          href="#home"
+          class="text-lg font-black tracking-tighter text-slate-900 dark:text-white flex items-center gap-1 group/logo"
         >
-          Let's Talk
-        </button></a
-      >
-    </nav>
+          <span
+            class="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 group-hover/logo:scale-125 transition-transform duration-300"
+          ></span>
+          Bayu
+        </a>
+      </div>
 
-    <button id="menuBtn" class="md:hidden text-2xl transition">☰</button>
-  </div>
-  <div
-    id="overlay"
-    class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden z-40"
-  >
+      <nav class="hidden md:flex items-center gap-1 px-1">
+        <a
+          href="#home"
+          class="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200"
+          >Home</a
+        >
+        <a
+          href="#projects"
+          class="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200"
+          >Projects</a
+        >
+        <a
+          href="#contact"
+          class="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200"
+          >Contact</a
+        >
+        <div class="w-px h-4 bg-slate-200 dark:bg-slate-800 mx-2"></div>
+        <ThemeToggle />
+      </nav>
+
+      <div class="flex items-center gap-1 md:hidden">
+        <ThemeToggle />
+        <button
+          id="menuBtn"
+          class="p-2 text-slate-900 dark:text-white transition-colors duration-300 focus:outline-none"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
 
+  <!-- Mobile Menu -->
   <div
     id="mobileMenu"
-    class="md:hidden max-h-0 overflow-hidden transition-all duration-300 bg-white/70 backdrop-blur-md border-t border-white/20 mx-3 rounded-md shadow"
+    class="md:hidden max-h-0 overflow-hidden mt-3 transition-all duration-500 pointer-events-auto"
   >
-    <div class="flex flex-col text-center text-xl py-4">
-      <a href="#home" class="nav-link py-2">Home</a>
-      <a href="#projects" class="nav-link py-2">Project</a>
-      <a href="#contact" class="nav-link py-2">Contact</a>
-      <a href="#contact">
-        <button
-          class="bg-gradient-to-r from-zinc-800 via-black to-zinc-900 text-white font-medium px-6 py-2.5 rounded-xl shadow-md
-  transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5 active:scale-95"
-        >
-          Let's Talk
-        </button></a
+    <div class="max-w-2xl mx-auto glass rounded-2xl p-4 flex flex-col gap-2">
+      <a
+        href="#home"
+        class="mobile-nav-link p-3 rounded-xl text-lg font-semibold text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+        >Home</a
       >
+      <a
+        href="#projects"
+        class="mobile-nav-link p-3 rounded-xl text-lg font-semibold text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+        >Project</a
+      >
+      <a
+        href="#contact"
+        class="mobile-nav-link p-3 rounded-xl text-lg font-semibold text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-all border-b border-slate-100 dark:border-slate-800 mb-2"
+        >Contact</a
+      >
+      <a
+        href="#contact"
+        class="p-4 bg-zinc-900 dark:bg-white text-white dark:text-slate-950 rounded-xl text-center font-bold shadow-xl shadow-blue-500/10 active:scale-95 transition-all"
+      >
+        Let's Connect
+      </a>
     </div>
   </div>
 </header>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener("click", () => {
+        const isOpen = mobileMenu.classList.contains("max-h-[400px]");
+        if (isOpen) {
+          mobileMenu.classList.remove("max-h-[400px]");
+          mobileMenu.classList.add("max-h-0");
+        } else {
+          mobileMenu.classList.remove("max-h-0");
+          mobileMenu.classList.add("max-h-[400px]");
+        }
+      });
+
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("max-h-[400px]");
+          mobileMenu.classList.add("max-h-0");
+        });
+      });
+    }
+  });
+</script>
