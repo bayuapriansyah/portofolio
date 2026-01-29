@@ -17,7 +17,7 @@ const { image, title, desc, tags = ["Product", "Dev"] } = Astro.props;
       <div class="flex gap-2">
         {
           tags.map((tag: any) => (
-            <span class="px-3 py-1 glass text-[10px] font-bold uppercase tracking-widest text-white rounded-full">
+            <span class="px-3 py-1 glass text-[10px] font-bold uppercase tracking-widest text-black dark:text-white rounded-full">
               {tag}
             </span>
           ))
