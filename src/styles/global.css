@@ -26,11 +26,24 @@
 
 @layer components {
   .glass {
-    @apply backdrop-blur-md bg-white/70 border border-white/20 shadow-xl;
+    @apply bg-white/90 border border-white/20 shadow-xl;
+  }
+
+  /* Only enable backdrop blur on larger screens where performance is better */
+  @media (min-width: 768px) {
+    .glass {
+      @apply backdrop-blur-md bg-white/70;
+    }
   }
 
   .dark .glass {
-    @apply bg-slate-900/70 border-white/5 shadow-black/50;
+    @apply bg-slate-900/90 border-white/5 shadow-black/50;
+  }
+  
+  @media (min-width: 768px) {
+    .dark .glass {
+       @apply bg-slate-900/70;
+    }
   }
 
   /* Animated background elements */
@@ -47,14 +60,16 @@
     width: 600px;
     height: 600px;
     background: radial-gradient(
-      circle,
-      rgba(59, 130, 246, 0.08),
-      transparent 70%
+      closest-side,
+      rgba(59, 130, 246, 0.15),
+      rgba(59, 130, 246, 0.05) 50%,
+      transparent 100%
     );
     border-radius: 50%;
     animation: float 20s infinite ease-in-out;
     top: -10%;
     left: -5%;
+    will-change: transform;
   }
 
   .blob-2 {
@@ -62,14 +77,16 @@
     width: 500px;
     height: 500px;
     background: radial-gradient(
-      circle,
-      rgba(168, 85, 247, 0.05),
-      transparent 70%
+      closest-side,
+      rgba(168, 85, 247, 0.15),
+      rgba(168, 85, 247, 0.05) 50%,
+      transparent 100%
     );
     border-radius: 50%;
     animation: float 25s infinite ease-in-out reverse;
     top: 40%;
     right: -8%;
+    will-change: transform;
   }
 
   .blob-3 {
@@ -77,14 +94,16 @@
     width: 550px;
     height: 550px;
     background: radial-gradient(
-      circle,
-      rgba(45, 212, 191, 0.05),
-      transparent 70%
+      closest-side,
+      rgba(45, 212, 191, 0.15),
+      rgba(45, 212, 191, 0.05) 50%,
+      transparent 100%
     );
     border-radius: 50%;
     animation: float 30s infinite ease-in-out;
     bottom: -15%;
     left: 10%;
+    will-change: transform;
   }
 
   @keyframes float {
@@ -100,6 +119,20 @@
     }
     75% {
       transform: translateY(-20px) translateX(5px);
+    }
+  }
+
+  /* Reduce animation load on mobile */
+  @media (max-width: 768px) {
+    .blob-1, .blob-2, .blob-3 {
+       /* Keep animation but maybe slower/simpler if needed, or just let it run since we removed blur */
+       opacity: 0.6;
+    }
+    
+    .animated-bg {
+        /* Force GPU rasterization for the container */
+        will-change: transform;
+        transform: translateZ(0);
     }
   }
 }

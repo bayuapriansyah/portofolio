@@ -98,27 +98,31 @@
 
     const avatar = document.querySelector("#hero-avatar");
     if (avatar) {
-      (avatar as HTMLElement).style.willChange = "transform";
+      if (window.matchMedia("(hover: hover)").matches) {
+        (avatar as HTMLElement).style.willChange = "transform";
 
-      if (mouseHandler) {
-        document.removeEventListener("mousemove", mouseHandler);
+        if (mouseHandler) {
+          document.removeEventListener("mousemove", mouseHandler);
+        }
+
+        mouseHandler = (e: MouseEvent) => {
+          requestAnimationFrame(() => {
+            const x = (e.clientX - window.innerWidth / 2) * 0.008;
+            const y = (e.clientY - window.innerHeight / 2) * 0.008;
+            gsap.to(avatar, {
+              x,
+              y,
+              rotateY: x * 0.4,
+              rotateX: -y * 0.4,
+              duration: 0.6,
+              force3D: true,
+              ease: "power2.out",
+            });
+          });
+        };
+
+        document.addEventListener("mousemove", mouseHandler);
       }
-
-      mouseHandler = (e: MouseEvent) => {
-        const x = (e.clientX - window.innerWidth / 2) * 0.008;
-        const y = (e.clientY - window.innerHeight / 2) * 0.008;
-        gsap.to(avatar, {
-          x,
-          y,
-          rotateY: x * 0.4,
-          rotateX: -y * 0.4,
-          duration: 0.6,
-          force3D: true,
-          ease: "power2.out",
-        });
-      };
-
-      document.addEventListener("mousemove", mouseHandler);
     }
   };
 
